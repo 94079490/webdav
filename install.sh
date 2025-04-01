@@ -10,8 +10,8 @@ RED="\033[31m"
 RESET="\033[0m"
 
 # 证书路径
-SSL_CERT="/etc/letsencrypt/live/yourdomain.com/fullchain.pem"
-SSL_KEY="/etc/letsencrypt/live/yourdomain.com/privkey.pem"
+SSL_CERT="/etc/letsencrypt/live/dp602.0027149.xyz/fullchain.pem"
+SSL_KEY="/etc/letsencrypt/live/dp602.0027149.xyz/privkey.pem"
 
 # 检查是否为 root 用户
 if [[ $EUID -ne 0 ]]; then
@@ -31,7 +31,7 @@ install_webdav() {
     cat > /etc/nginx/sites-available/webdav <<EOF
 server {
     listen 80;
-    server_name yourdomain.com;
+    server_name dp602.0027149.xyz;
     location / {
         return 301 https://\$host\$request_uri;
     }
@@ -39,7 +39,7 @@ server {
 
 server {
     listen 443 ssl;
-    server_name yourdomain.com;
+    server_name dp602.0027149.xyz;
 
     ssl_certificate $SSL_CERT;
     ssl_certificate_key $SSL_KEY;
@@ -63,7 +63,7 @@ EOF
 # 配置 SSL 证书
 setup_ssl() {
     echo -e "${GREEN}申请 SSL 证书...${RESET}"
-    certbot --nginx -d yourdomain.com
+    certbot --nginx -d dp602.0027149.xyz
     systemctl reload nginx
 }
 
