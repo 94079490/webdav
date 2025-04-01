@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # WebDAV 安装路径
-WEBDAV_DIR="/etc/webdav"
-CONFIG_FILE="${WEBDAV_DIR}/users.conf"
+WEBDAV_DIR="/var/www/webdav"
+CONFIG_FILE="/etc/nginx/webdav.htpasswd"
 
 # 颜色
 GREEN="\033[32m"
@@ -22,10 +22,10 @@ fi
 # 安装 WebDAV 和所需依赖
 install_webdav() {
     echo -e "${GREEN}安装 WebDAV 并启用 SSL...${RESET}"
-    apt update && apt install -y apache2-utils nginx certbot python3-certbot-nginx
+    apt update && apt install -y nginx apache2-utils certbot python3-certbot-nginx
 
     mkdir -p "$WEBDAV_DIR"
-    touch "$CONFIG_FILE"
+    chmod 777 "$WEBDAV_DIR"
 
     # 设置 Nginx 配置
     cat > /etc/nginx/sites-available/webdav <<EOF
